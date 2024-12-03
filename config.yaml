@@ -1,0 +1,17 @@
+cookie:
+  expiry_days: 0
+  key: some_signature_key
+  name: some_cookie_name
+credentials:
+  usernames:
+    kgh5408:
+      email: kgh5408@nate.com
+      name: 김근형
+      password: $2b$12$UZFaiFhBsufR8IkvJoJIQuIqqDZVvA8JkIWxkx6iq6XxEIKbBl7.K
+    rkgus0524:
+      email: rkgus0524@naver.com
+      name: 김가현
+      password: $2b$12$5ZU3cmImOCKB1Vpfmdm9t.zqZCebDOIzA01hcPx0X.Gw4VVnxpDxO
+pre-authorized:
+  emails:
+  - melsby@gmail.com
