@@ -31,8 +31,8 @@ api_key = os.getenv('api_key')
 os.environ["OPENAI_API_KEY"] = api_key
 
 
-st.set_page_config(page_title="전세 사기 방지 ChatBot", page_icon="🏠")
-st.title("🏠 전세 사기 방지 ChatBot")
+st.set_page_config(page_title="전세 사기 예방 ChatBot", page_icon="🏠")
+st.title("🏠 전세 사기 예방 ChatBot")
 
 # login (https://github.com/mkhorasani/Streamlit-Authenticator)
 with open('config.yaml', encoding='utf-8') as file:
@@ -46,7 +46,7 @@ authenticator = stauth.Authenticate(
     # config['pre-authorized']
 )
 
-st.session_state['authentication_status'] = True  # !!!!!!!!!!! 나중에 지우기
+# st.session_state['authentication_status'] = True  
 
 if st.session_state['authentication_status'] is None:
     try:
@@ -126,20 +126,23 @@ elif st.session_state['authentication_status']:
             등기부등본:{st.session_state["document1"]} 
             
             위 등기부등본 내용을 구체적으로 말해주세요.
-            
+            소유자는 가장 최신의 날짜의 소유자명을 말해주세요.
+            총 근저당은 근저당권설정의 합계금액을 알려주세요.
+            주의는 가등기, 신탁, 가처분, 가압류, 경매개시결정, 임차권 등기 명령이 
+            등기부등본 내용에 포함되어있는지 확인하고 주의해야 할 내용이 있다면 알려주세요.
+        
             [답변형식]
             본 등기부등본의 내용을 정리하여 말씀 드리겠습니다.
             - 지번 주소:
             - 두로명 주소:
+            - 소유자:
             - 전용 면적: {area}㎡
             - 총 근저당: 
-            - 신탁 여부:
-            - 압류 현황:
-            - 등등
-        """  # !!!!! 답변형식을 지정해주면 좋을듯!
+            - 주의
+        """ 
         with st.chat_message("assistant"):
             stream_handler = StreamHandler(st.empty())
-            llm = ChatOpenAI(streaming=True, callbacks=[stream_handler])
+            llm = ChatOpenAI(streaming=True, callbacks=[stream_handler],temperature=0.8)
             prompt_template = """
                 {chat_history}
                 질문: {input}
@@ -180,7 +183,7 @@ elif st.session_state['authentication_status']:
                         "system",
                         # "등기부등본 내용은 다음과 같습니다: {document}"
                         # "전세사기와 관련된 질문에 친절히 답변하세요."
-                        "너는 부동산 전문가야"
+                        "당신은 부동산 전문 변호사입니다."
                     ),
                     # # 대화 기록을 변수로 사용, history가 MessageHistory의 key가 됨.
                     # MessagesPlaceholder(variable_name="history"),
@@ -194,7 +197,7 @@ elif st.session_state['authentication_status']:
                 참고 내용: {context}
                 이전 대화 내용: {chat_history} 
                 
-                너는 위 내용을 기반하여 답변하면 된다.
+                위 내용을 기반하여 답변해주세요.
                 """
             )
             human_message = HumanMessagePromptTemplate.from_template(

@@ -107,7 +107,7 @@ def configure_retriever(
     
     # 임베딩 필터 설정
     embeddings_filter = EmbeddingsFilter(
-        embeddings=embeddings, similarity_threshold=0.2
+        embeddings=embeddings, similarity_threshold=0.4
     )
     return ContextualCompressionRetriever(
         base_compressor=embeddings_filter,
