@@ -7,14 +7,15 @@
 - https://www.youtube.com/watch?v=VtS8yF2ItgI
 
 """
+import os
+import re
+import yaml
+
 from langchain.schema import ChatMessage
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables import RunnableWithMessageHistory
-import yaml
 import streamlit_authenticator as stauth
-from utils import *
-from documents import *
 from langchain.prompts.chat import (
 HumanMessagePromptTemplate,
 SystemMessagePromptTemplate,
@@ -22,12 +23,14 @@ SystemMessagePromptTemplate,
 from langchain.chains import ConversationChain
 from langchain.prompts import PromptTemplate
 from streamlit.external.langchain import StreamlitCallbackHandler
-import re
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
-api_key = os.getenv('api_key')
+from utils import *
+from documents import *
+# from dotenv import load_dotenv
+
+# load_dotenv()
+# api_key = os.getenv('api_key')
+api_key = "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"
 os.environ["OPENAI_API_KEY"] = api_key
 
 
