@@ -30,7 +30,7 @@ from documents import *
 
 # load_dotenv()
 # api_key = os.getenv('api_key')
-api_key = "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"
+api_key = "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"
 os.environ["OPENAI_API_KEY"] = api_key
 
 
